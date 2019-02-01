@@ -1,4 +1,4 @@
-from component import Component
+from .component import Component
 
 
 class System:
@@ -7,7 +7,7 @@ class System:
     catalog = dict()
 
     def __new__(cls, name=None, components=None):
-        components = components else []
+        components = components or []
         name = cls.__name__ if name is None else name
         if name not in System.catalog:
             system = super().__new__(cls)
@@ -16,7 +16,7 @@ class System:
 
     def __init__(self, name=None, components=None):
         self.name = name
-        self.components = components else []
+        self.components = components or []
 
     def __repr__(self):
         return f'<{self.__class__.__name__} {self.name}>'

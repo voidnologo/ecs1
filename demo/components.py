@@ -1,6 +1,6 @@
 from random import randint
 
-from component import Component
+from core.component import Component
 
 
 class Health(Component):

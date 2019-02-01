@@ -1,5 +1,5 @@
 from components import Health, Damage
-from entity import Entity
+from core.entity import Entity
 
 
 player = Entity('player', 0)

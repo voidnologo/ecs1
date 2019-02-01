@@ -16,7 +16,7 @@ class Component:
             cls.catalog = dict()
         if entity is not None and entity not in cls.catalog:
             cls.catalog[entity] = super().__new__(cls)
-            return cls_catalog[entity]
+            return cls.catalog[entity]
         return super().__new__(cls)
 
     def __init__(self, entity=None, **properties):

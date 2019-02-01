@@ -1,4 +1,4 @@
-from system import System
+from core.system import System
 
 
 class CombatSystem(System):

@@ -1,6 +1,6 @@
 import uuid
 
-from component import Component
+from .component import Component
 
 
 class Entity:

@@ -2,6 +2,7 @@ import unittest
 import uuid
 
 from ..entity import Entity
+from ..component import Component
 
 
 class EnitityTests(unittest.TestCase):
@@ -53,28 +54,52 @@ class EnitityTests(unittest.TestCase):
         self.assertEqual(Entity.catalog, expected)
 
     def test_dictionary_assignment_adds_attribute_to_entity(self):
+        class C(Component):
+            defaults = {}
         e = Entity(name='player')
-        e['some_val'] = 'x'
-        expected = 'x'
-        self.assertEqual(e.components['some_val'], expected)
+        c = C()
+        e['some_val'] = c
+        self.assertEqual(e.components['some_val'], c)
+
+    def test_dictionary_assignment_sets_entity_if_value_is_a_component(self):
+        class A(Component):
+            defaults = {'a': 'b'}
+        e = Entity(name='player')
+        a = A()
+        e['some_val'] = a
+        self.assertEqual(a.entity, e)
 
     def test_dictionary_lookup_gets_value(self):
+        class C(Component):
+            defaults = {}
         e = Entity(name='player')
-        e['some_val'] = 'x'
-        expected = 'x'
-        self.assertEqual(e['some_val'], expected)
+        c = C()
+        e['some_val'] = c
+        self.assertEqual(e['some_val'], c)
 
-    def test_dot_assignment_adds_attribute_to_entity(self):
+    def test_dot_assignment_adds_component_attribute_to_entity(self):
+        class C(Component):
+            defaults = {}
         e = Entity(name='player')
-        e.some_val = 'x'
-        expected = 'x'
-        self.assertEqual(e.components['some_val'], expected)
+        c = C()
+        e.some_val = c
+        self.assertEqual(e.components['some_val'], c)
 
     def test_dot_assignment_gets_attribute_from_entity(self):
+        class C(Component):
+            defaults = {}
         e = Entity(name='player')
-        e.some_val = 'x'
-        expected = 'x'
-        self.assertEqual(e.some_val, expected)
+        c = C()
+        e.some_val = c
+        self.assertEqual(e.some_val, c)
+
+    def test_dot_assignment_sets_entity_if_value_is_a_component(self):
+        class A(Component):
+            defaults = {'a': 'b'}
+        e = Entity(name='player')
+        a = A()
+        e.some_val = a
+        self.assertEqual(a.entity, e)
 
     def assertValidUUID4(self, uuid_to_test):
         try:

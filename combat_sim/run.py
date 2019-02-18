@@ -12,14 +12,14 @@ def simulate(number_of_cowboys, number_of_aliens):
     print('-'*40)
     print("Round: # -- C | A")
     print('-----------------')
-    combat_round = 0
+    combat_rounds = 0
     while True:
         cowboys_alive = sum(e.health.alive for e in entities['cowboys'])
         aliens_alive = sum(e.health.alive for e in entities['aliens'])
         if cowboys_alive == 0 or aliens_alive == 0:
             break
-        print(f'Round: {combat_round} -- {cowboys_alive} | {aliens_alive}')
-        combat_round += 1
+        print(f'Round: {combat_rounds} -- {cowboys_alive} | {aliens_alive}')
+        combat_rounds += 1
         combat_system.update()
 
     print('='*40)

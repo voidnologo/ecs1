@@ -18,3 +18,7 @@ class Damage(Component):
         '''Returns a damage calc based on properties'''
         crit = randint(0, 99) <= (self.critical_percent - 1)
         return self.critical if crit else self.normal
+
+
+class Humanoid(Component):
+    defaults = {'race': 'unknown'}

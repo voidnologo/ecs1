@@ -3,7 +3,7 @@ import json
 
 class Component:
 
-    __slots__ = ['entity']
+    # __slots__ = ['entity']
 
     defaults = dict()
     catalog = dict()
@@ -24,27 +24,27 @@ class Component:
         for prop, val in self.defaults.items():
             setattr(self, prop, properties.get(prop, val))
 
-    def __repr__(self):
-        entity_name = ''
-        if self.entity:
-            for prop_name, component in self.entity.components.items():
-                if component == self:
-                    entity_name = f' entity:{self.entity.name}.{prop_name}'
-                    break
-        return f'<{self.__class__.__name__}{entity_name}>'
+    # def __repr__(self):
+    #     entity_name = ''
+    #     if self.entity:
+    #         for prop_name, component in self.entity.components.items():
+    #             if component == self:
+    #                 entity_name = f' entity:{self.entity.name}.{prop_name}'
+    #                 break
+    #     return f'<{self.__class__.__name__}{entity_name}>'
 
     def __str__(self):
-        data = {k: getattr(self, key) for key in self.defaults.keys() if key != 'defaults'}
+        data = {key: getattr(self, key) for key in self.defaults.keys() if key != 'defaults'}
         return json.dumps(data, indent=4)
 
-    def __hash__(self):
-        return (
-            hash(self.Catalog) ^
-            hash(self.ComponentTypes) ^
-            hash(self.defaults) ^
-            hash(self.entity) ^
-            hash(self)
-        )
+    # def __hash__(self):
+    #     return (
+    #         hash(self.catalog) ^
+    #         hash(self.component_types) ^
+    #         hash(self.defaults) ^
+    #         hash(self.entity) ^
+    #         hash(self)
+    #     )
 
     def __iter__(self):
         for prop in self.defaults:
@@ -56,14 +56,14 @@ class Component:
     def __setitem__(self, key, value):
         return setattr(self, key, value)
 
-    def __del__(self):
-        if self.entity:
-            for attr, component in [(attr, component) for attr, component in self.entity.components.items()]:
-                if component == self:
-                    self.entity.components.pop(attr)
-        if self.entity in self.__class__.catalog:
-            self.__class__.catalog.pop(self.entity)
+    # def __del__(self):
+    #     if self.entity:
+    #         for attr, component in [(attr, component) for attr, component in self.entity.components.items()]:
+    #             if component == self:
+    #                 self.entity.components.pop(attr)
+    #     if self.entity in self.__class__.catalog:
+    #         self.__class__.catalog.pop(self.entity)
 
     def reset(self):
         for prop_name, value in self.defaults.items():
-            seattr(self, prop_name, value)
+            setattr(self, prop_name, value)

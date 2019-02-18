@@ -3,7 +3,7 @@ from .component import Component
 
 class System:
 
-    components = []
+    components = set()
     catalog = dict()
 
     def __new__(cls, name=None, components=None):
@@ -16,7 +16,8 @@ class System:
 
     def __init__(self, name=None, components=None):
         self.name = name
-        self.components = components or []
+        if components is not None:
+            self.components |= set(components)
 
     def __repr__(self):
         return f'<{self.__class__.__name__} {self.name}>'

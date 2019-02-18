@@ -7,7 +7,6 @@ class System:
     catalog = dict()
 
     def __new__(cls, name=None, components=None):
-        components = components or []
         name = cls.__name__ if name is None else name
         if name not in System.catalog:
             system = super().__new__(cls)
